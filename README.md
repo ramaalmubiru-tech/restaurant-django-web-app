@@ -1,1 +1,0 @@
-# restaurant-django-web-app
