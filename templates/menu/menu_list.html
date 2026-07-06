@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Menu</h2>
+  <p>Welcome to our menu!</p>
+  {% for category in categories %}
+  <section
+    <h3>{{ category.name }}</h3>
+    
+      {% for item in category.menuitem_set.all %}
+        {% if item.is_available %}
+            <div>
+                <span>{{ item.name }}</span>
+                <span>Price: UGX{{ item.price }}</span>
+            </div>
+            {% endif %}
+      {% endfor %}
+  </section>
+  {% endfor %}
+    <h2>Drinks</h2>
+    {% for drink_type in drink_types %}
+    <section>
+        <h3>{{ drink_type.name }}</h3>
+        {% for drink in drink_type.drink_set.all %}
+            {% if drink.is_available %}
+                <div>
+                    <span>{{ drink.name }}</span>
+                    <span>Price: UGX{{ drink.price }}</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+{% endblock %}

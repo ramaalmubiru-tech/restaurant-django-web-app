@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ramaals Restaurant </title>
+    <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <nav>
+      <h1>Ramaals Food Restaurant</h1>
+      <a href="{% url 'menu:menu_list' %}">Menu</a>
+    </nav>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    <footer>
+      <p>&copy; 2023 My Restaurant. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
