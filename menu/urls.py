@@ -4,4 +4,5 @@ app_name = 'menu'
 
 urlpatterns = [
     path('', views.menu_list, name='menu_list'),
+    path('add/<int:item_id>/', views.add_to_cart,name='add_to_cart'),
 ]

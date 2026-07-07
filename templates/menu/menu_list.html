@@ -11,6 +11,7 @@
             <div>
                 <span>{{ item.name }}</span>
                 <span>Price: UGX{{ item.price }}</span>
+                <a href="{% url 'menu:add_to_cart' item.id %}">Add to Cart</a>
             </div>
             {% endif %}
       {% endfor %}
@@ -28,4 +29,6 @@
                 </div>
             {% endif %}
         {% endfor %}
+    {% endfor %}
+    </section>
 {% endblock %}
