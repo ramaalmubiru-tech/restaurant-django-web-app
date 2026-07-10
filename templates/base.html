@@ -5,9 +5,37 @@
     <meta name ="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <nav>
-      <h1>Ramaals Food Restaurant</h1>
-      <a href="{% url 'menu:menu_list' %}">Menu</a>
+
+    <nav class="navbar navbar-dark bg-dark px-4">
+    <a class="navbar-brand fw-bold" 
+       href="{% url 'menu:menu_list' %}">
+        Ramaal's Restaurant
+    </a>
+    <div class="d-flex gap-2">
+        <a href="{% url 'menu:menu_list' %}" 
+           class="btn btn-outline-light btn-sm">Menu</a>
+        <a href="{% url 'orders:view_cart' %}" 
+           class="btn btn-outline-light btn-sm">Cart</a>
+        {% if user.is_authenticated %}
+            <span class="text-light btn btn-sm">
+                Hi, {{ user.username }}
+            </span>
+            {% if user.is_staff %}
+            <a href="{% url 'orders:staff_dashboard' %}" 
+               class="btn btn-warning btn-sm">
+                Staff Dashboard
+            </a>
+            {% endif %}
+            <a href="{% url 'logout' %}" 
+               class="btn btn-danger btn-sm">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" 
+               class="btn btn-success btn-sm">Login</a>
+            <a href="{% url 'register' %}" 
+               class="btn btn-outline-light btn-sm">Register</a>
+        {% endif %}
+    </div>
+
     </nav>
     <main>
       {% block content %}

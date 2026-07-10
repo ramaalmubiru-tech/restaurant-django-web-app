@@ -30,7 +30,10 @@
         </tfoot>
     </table>
     <a href="{% url 'menu:menu_list' %}" class="btn btn-secondary">Back to Menu</a>
-    <a href="#" class="btn btn-success">Confirm Order</a>
+    <form method="POST" action="{% url 'orders:confirm_order' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Confirm Order</button>
+    </form>
 </div>
 {% endblock %}
 

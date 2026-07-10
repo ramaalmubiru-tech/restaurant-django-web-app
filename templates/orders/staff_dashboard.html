@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Active Orders</h2>
+    {% for order in orders %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>Order #{{ order.id }} — 
+                {{ order.customer.username }}
+            </h5>
+            <p>Status: 
+                <span class="badge bg-warning text-dark">
+                    {{ order.status }}
+                </span>
+            </p>
+            <p>Total: UGX {{ order.total_cost }}</p>
+            <p>Time: {{ order.created_at }}</p>
+            <form method="POST"
+                  action="{% url 'orders:update_status' order.id %}">
+                {% csrf_token %}
+                <select name="status" 
+                        class="form-select w-auto d-inline">
+                    <option value="pending">Pending</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="served">Served</option>
+                </select>
+                <button type="submit" 
+                        class="btn btn-primary btn-sm ms-2">
+                    Update
+                </button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-success fw-bold">
+        No active orders right now.
+    </p>
+    {% endfor %}
+</div>
+{% endblock %}

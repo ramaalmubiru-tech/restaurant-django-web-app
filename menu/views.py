@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Category, MenuItem, DrinkType, Drink
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 # Create your views here.
 
 def menu_list(request):
@@ -18,16 +20,52 @@ def menu_list(request):
     return render(request, 'menu/menu_list.html', context)
 def add_to_cart(request,item_id):
     cart=request.session.get('cart',{})
-    item=MenuItem.objects.get(id=item_id)
-    if str(item_id) not in cart:
-        cart[str(item_id)]={
+    item=MenuItem.objects.get(id=item_id) 
+    if 'food_' + str(item_id) not in cart:
+        cart['food_' + str(item_id)]={
             'name':item.name,
             'price':str(item.price),
             'quantity':1,
         }
     else:
-        cart[str(item_id)]['quantity']+=1
+        cart['food_' + str(item_id)]['quantity']+=1
 
     request.session['cart']=cart
     request.session.modified=True
     return redirect('menu:menu_list')
+def add_drink_to_cart(request,item_id):
+    cart=request.session.get('cart',{})
+    item=Drink.objects.get(id=item_id)
+    if 'drink_' + str(item_id) not in cart:
+        cart['drink_' + str(item_id)]={
+            'name':item.name,
+            'price':str(item.price),
+            'quantity':1,
+        }
+    else:
+        cart['drink_' + str(item_id)]['quantity']+=1
+
+    request.session['cart']=cart
+    request.session.modified=True
+    return redirect('menu:menu_list')
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('menu:menu_list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'accounts/register.html', {'form': form})
+
+
+
+
+
+
+
+
+
+

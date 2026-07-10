@@ -26,6 +26,8 @@
                 <div>
                     <span>{{ drink.name }}</span>
                     <span>Price: UGX{{ drink.price }}</span>
+                    <a href="{% url 'menu:add_drink_to_cart' drink.id %}">Add to Cart</a>
+
                 </div>
             {% endif %}
         {% endfor %}

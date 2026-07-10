@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+
 
 # Create your models here.
 from menu.models import MenuItem,Drink
@@ -10,6 +12,22 @@ class Order(models.Model):
         ('preparing','Preparing'),
         ('served','Served'),
     ]
+
+    customer = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='orders_placed'
+    )
+    taken_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='orders_handled'
+    )
+
 
     created_at=models.DateTimeField(auto_now_add=True)
     total_cost=models.DecimalField(max_digits=10,decimal_places=2,default=0)
