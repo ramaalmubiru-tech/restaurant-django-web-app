@@ -1,3 +1,4 @@
+{% load static %}
 {% extends 'base.html' %}
 {% block content %}
   <h2>Menu</h2>
@@ -11,6 +12,11 @@
             <div>
                 <span>{{ item.name }}</span>
                 <span>Price: UGX{{ item.price }}</span>
+                {% if item.menu_item_image %}
+    <img src="{{ item.menu_item_image.url }}" alt="{{ item.name }}" style="width:150px;">
+{% else %}
+    <img src="{% static 'images/logo1.png' %}" alt="{{ item.name }}" style="width:150px;">
+{% endif %}
                 <a href="{% url 'menu:add_to_cart' item.id %}">Add to Cart</a>
             </div>
             {% endif %}
@@ -26,6 +32,11 @@
                 <div>
                     <span>{{ drink.name }}</span>
                     <span>Price: UGX{{ drink.price }}</span>
+                    {% if drink.drink_image %}
+    <img src="{{ drink.drink_image.url }}" alt="{{ drink.name }}" style="width:150px;">
+{% else %}
+    <img src="{% static 'images/logo2.png' %}" alt="{{ drink.name }}" style="width:150px;">
+{% endif %}
                     <a href="{% url 'menu:add_drink_to_cart' drink.id %}">Add to Cart</a>
 
                 </div>
